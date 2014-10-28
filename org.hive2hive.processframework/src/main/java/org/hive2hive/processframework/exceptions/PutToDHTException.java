@@ -17,6 +17,6 @@ public class PutToDHTException extends ProcessExecutionException{
 	}
 	
 	public PutToDHTException(String hint) {
-		super(hint, ProcessError.VERSION_FORK);
+		super(hint, ProcessError.PUT_FAILED);
 	}
 }

@@ -49,7 +49,7 @@ public abstract class ProcessComponent implements IProcessComponent {
 
 	@Override
 	public IProcessComponent start() throws InvalidProcessStateException {
-		logger.trace("Executing '{}'.", this.getClass().getSimpleName());
+		logger.trace("Executing '{}' with ID {}.", this.getClass().getSimpleName(), this.getID());
 
 		if (state != ProcessState.READY) {
 			throw new InvalidProcessStateException(state);
@@ -59,7 +59,9 @@ public abstract class ProcessComponent implements IProcessComponent {
 
 		try {
 			doExecute();
+			logger.trace("Finished doExecute for '{}' with ID {}.", this.getClass().getSimpleName(), this.getID());
 			succeed();
+			logger.trace("Finished succeed '{}' with ID {}.", this.getClass().getSimpleName(), this.getID());
 		} catch (ProcessExecutionException e) {
 			logger.warn("Catched ProcessExecutionException and Reason: {}", e.getRollbackReason().getHint());
 			cancel(e.getRollbackReason());
