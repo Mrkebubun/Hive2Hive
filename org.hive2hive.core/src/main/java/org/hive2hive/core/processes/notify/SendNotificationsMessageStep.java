@@ -57,6 +57,7 @@ public class SendNotificationsMessageStep extends BaseDirectMessageProcessStep {
 			logger.debug("Need to cleanup {} unreachable peers of own user", unreachablePeers.size());
 			getParent().add(new RemoveUnreachableStep(unreachablePeers, networkManager));
 		}
+		logger.trace("Finished SendNotificationsMessageStep with ID {}", this.getID());
 	}
 
 	private void notifyMyPeers(List<PeerAddress> ownPeers, BaseNotificationMessageFactory messageFactory,

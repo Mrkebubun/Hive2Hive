@@ -6,6 +6,8 @@ import org.hive2hive.core.processes.context.interfaces.INotifyContext;
 import org.hive2hive.processframework.abstracts.ProcessStep;
 import org.hive2hive.processframework.exceptions.InvalidProcessStateException;
 import org.hive2hive.processframework.exceptions.ProcessExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Verifies whether the own user is in the notifications or not.
@@ -15,6 +17,7 @@ import org.hive2hive.processframework.exceptions.ProcessExecutionException;
  */
 public class VerifyNotificationFactoryStep extends ProcessStep {
 
+	private static final Logger logger = LoggerFactory.getLogger(VerifyNotificationFactoryStep.class);
 	private final INotifyContext context;
 	// own User id
 	private final String userId;
@@ -32,6 +35,7 @@ public class VerifyNotificationFactoryStep extends ProcessStep {
 			throw new ProcessExecutionException(
 					"Users can't be notified because the UserProfileTask is null and no notification of the own user.");
 		}
+		logger.trace("Finished VerifyNotificationFactoryStep with ID {}", this.getID());
 	}
 
 }

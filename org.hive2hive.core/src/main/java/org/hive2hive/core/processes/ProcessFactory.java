@@ -76,6 +76,8 @@ import org.hive2hive.processframework.concretes.SequentialProcess;
 import org.hive2hive.processframework.decorators.AsyncComponent;
 import org.hive2hive.processframework.decorators.AsyncResultComponent;
 import org.hive2hive.processframework.interfaces.IResultProcessComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Factory class for the creation of specific process components and composites that represent basic
@@ -85,6 +87,7 @@ import org.hive2hive.processframework.interfaces.IResultProcessComponent;
  */
 public final class ProcessFactory {
 
+	private static final Logger logger = LoggerFactory.getLogger(ProcessFactory.class);
 	private static ProcessFactory instance;
 
 	private ProcessFactory() {
@@ -302,6 +305,19 @@ public final class ProcessFactory {
 		process.add(createNotificationProcess(context.getMoveNotificationContext(), networkManager));
 		process.add(createNotificationProcess(context.getDeleteNotificationContext(), networkManager));
 		process.add(createNotificationProcess(context.getAddNotificationContext(), networkManager));
+		
+		logger.trace("Process to move file from {} to {} done, steps have following IDs:", source.getAbsolutePath(), destination.getAbsolutePath());
+		for(ProcessComponent comp : process.getComponents()){
+			if(comp instanceof SequentialProcess){
+				SequentialProcess compAsSeqProcess = (SequentialProcess)comp;
+				for(ProcessComponent comp2 : compAsSeqProcess.getComponents()){
+					logger.trace("    Type: {} ID: {}", comp.getClass(), comp.getID());
+				}
+			} else {
+				logger.trace("Type: {} ID: {}", comp.getClass(), comp.getID());
+			}
+			
+		}
 
 		return process;
 	}

@@ -50,5 +50,6 @@ public class GetPublicKeysStep extends ProcessStep {
 
 		// store the keys to the context
 		context.setUserPublicKeys(keys);
+		logger.trace("Finished GetPublicKeysStep with ID {}", this.getID());
 	}
 }

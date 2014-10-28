@@ -25,6 +25,8 @@ import org.hive2hive.processframework.decorators.AsyncComponent;
 import org.hive2hive.processframework.decorators.AsyncResultComponent;
 import org.hive2hive.processframework.interfaces.IProcessComponent;
 import org.hive2hive.processframework.interfaces.IResultProcessComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Default implementation of {@link IFileManager}.
@@ -33,6 +35,8 @@ import org.hive2hive.processframework.interfaces.IResultProcessComponent;
  * 
  */
 public class H2HFileManager extends H2HManager implements IFileManager {
+	
+	private static final Logger logger = LoggerFactory.getLogger(H2HFileManager.class);
 	
 	public H2HFileManager(NetworkManager networkManager, EventBus eventBus) {
 		super(networkManager, eventBus);
@@ -113,10 +117,13 @@ public class H2HFileManager extends H2HManager implements IFileManager {
 		}
 
 		IProcessComponent moveProcess = ProcessFactory.instance().createMoveFileProcess(source, destination, networkManager);
-
+		logger.trace("Move process created for destination {}", destination.getAbsolutePath());
+		
 		AsyncComponent asyncProcess = new AsyncComponent(moveProcess);
-
+		logger.trace("AsyncComponent of move process created for destination {} with ID {}", destination.getAbsolutePath(), asyncProcess.getID());
+		
 		submitProcess(asyncProcess);
+		logger.trace("Move process submitted for destination {}", destination.getAbsolutePath());
 		return asyncProcess;
 	}
 

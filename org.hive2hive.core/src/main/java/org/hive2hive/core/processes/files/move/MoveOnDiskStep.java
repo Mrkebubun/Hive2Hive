@@ -59,6 +59,7 @@ public class MoveOnDiskStep extends ProcessStep {
 //			throw new ProcessExecutionException("File could not be moved to destination.", e);
 //		}
 		logger.debug("Automatic file move disabled!");
+		logger.trace("Finished MoveOnDiskStep with ID {}", this.getID());
 	}
 
 	private void verifyFiles() throws NoSessionException {

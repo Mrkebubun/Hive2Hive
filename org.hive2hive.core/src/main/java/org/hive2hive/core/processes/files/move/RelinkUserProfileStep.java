@@ -103,6 +103,7 @@ public class RelinkUserProfileStep extends ProcessStep {
 		} catch (NoSessionException | GetFailedException | PutFailedException | NoPeerConnectionException e) {
 			throw new ProcessExecutionException(e);
 		}
+		logger.trace("Finished RelinkUserProfileStep with ID {}", this.getID());
 	}
 
 	private void initPKUpdateStep(Index movedNode, KeyPair oldProtectionKeys, KeyPair newProtectionKeys)

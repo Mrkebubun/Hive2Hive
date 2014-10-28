@@ -44,6 +44,8 @@ public class PutAllUserProfileTasksStep extends PutUserProfileTaskStep {
 			} catch (Exception e) {
 				logger.error("Could not put the user profile task to the queue of user '{}'." + user, e);
 			}
+			
+			logger.trace("Finished PutAllUserProfileTasksStep with ID {}", this.getID());
 		}
 	}
 }
