@@ -99,10 +99,10 @@ public class MoveOnDiskStep extends ProcessStep {
 
 	@Override
 	protected void doRollback(RollbackReason reason) throws InvalidProcessStateException {
-		try {
-			Files.move(context.getDestination().toPath(), context.getSource().toPath(), StandardCopyOption.ATOMIC_MOVE);
-		} catch (IOException e) {
-			// ignore
-		}
+//		try {
+//			Files.move(context.getDestination().toPath(), context.getSource().toPath(), StandardCopyOption.ATOMIC_MOVE);
+//		} catch (IOException e) {
+//			// ignore
+//		}
 	}
 }

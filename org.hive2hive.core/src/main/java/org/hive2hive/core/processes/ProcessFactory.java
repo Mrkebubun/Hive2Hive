@@ -311,7 +311,7 @@ public final class ProcessFactory {
 			if(comp instanceof SequentialProcess){
 				SequentialProcess compAsSeqProcess = (SequentialProcess)comp;
 				for(ProcessComponent comp2 : compAsSeqProcess.getComponents()){
-					logger.trace("    Type: {} ID: {}", comp.getClass(), comp.getID());
+					logger.trace("    Type: {} ID: {}", comp2.getClass(), comp2.getID());
 				}
 			} else {
 				logger.trace("Type: {} ID: {}", comp.getClass(), comp.getID());

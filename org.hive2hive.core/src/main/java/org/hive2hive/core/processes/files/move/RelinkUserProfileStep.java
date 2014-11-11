@@ -60,11 +60,31 @@ public class RelinkUserProfileStep extends ProcessStep {
 
 			logger.debug("Start relinking the moved file in the user profile.");
 			Index movedNode = userProfile.getFileById(context.getFileNodeKeys().getPublic());
-
+			if(movedNode == null){
+				logger.error("movedNode is null");
+			}
+			if(context == null){
+				logger.error("context is null");
+			}
+			if(context.getDestination() == null){
+				logger.error("context.getDestination() is null");
+			}
+			if(context.getDestination().getName() == null){
+				logger.error("context.getDestination().getName() is null");
+			}
 			// consider renaming
 			movedNode.setName(context.getDestination().getName());
 
 			FolderIndex oldParent = movedNode.getParent();
+			if(oldParent == null){
+				logger.error("oldParent is null");
+			}
+			if(oldParent.getFileKeys() == null){
+				logger.error("oldParent.getFileKeys() is null");
+			}
+			if(oldParent.getFileKeys().getPublic() == null){
+				logger.error("oldParent.getFileKeys().getPublic() is null");
+			}
 			oldParentKey = oldParent.getFileKeys().getPublic();
 
 			// get the new parent
@@ -101,6 +121,7 @@ public class RelinkUserProfileStep extends ProcessStep {
 			initNotificationParameters(oldParent.getCalculatedUserList(), movedNode);
 
 		} catch (NoSessionException | GetFailedException | PutFailedException | NoPeerConnectionException e) {
+			logger.trace("Exception of type {} in RelinkUserProfileStep with ID {}", e.getClass(), getID());
 			throw new ProcessExecutionException(e);
 		}
 		logger.trace("Finished RelinkUserProfileStep with ID {}", this.getID());
